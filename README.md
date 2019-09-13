@@ -39,13 +39,13 @@ Commit your code regularly and use descriptive messages. This helps both you (in
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] Explain the difference between `Relational Databases` and `SQL`.
-
+  SQL is the laungauge that you use to parse data bases, relational databases are just databases with multiple tables refereing to one another
 - [ ] Why do tables need a `primary key`?
-
+  To have a key that can be used to find things in the table its self.
 - [ ] What is the name given to a table column that references the primary key on another table.
-
+  foreign key
 - [ ] What do we need in order to have a _many to many_ relationship between two tables.
-
+  an entire table responsible to bringing together the ID's
 ## Minimum Viable Product
 
 Take the steps necessary to complete the project from scratch. Start by initializing your project with a `package.json` and go from there.
@@ -118,7 +118,7 @@ An `task` one of the steps needed to complete the project. We want to store the 
 - [ ] a notes column to add additional information.
 - [ ] a boolean that indicates if the task has been completed. This column cannot be NULL, the default value should be `false`.
 
-## Stretch Problem
+<!-- ## Stretch Problem
 
 This section is **optional** and not counted towards MVP. Start working on it after you're done with the main assignment.
 
@@ -169,4 +169,4 @@ A `context` can be applied to more than one `task`. An task can be tied to more 
 
 When retrieving an `task` by _id_, add a property that lists all the `contexts` related to that task.
 
-_Good luck and have fun!_
+_Good luck and have fun!_ -->
