@@ -46,16 +46,6 @@ router.get('/', (req, res) => {
       res.status(500).json({ message: 'Failed to get tasks' });
     });
   });
-  
-router.get('/tasks', (req, res) => {
-    Projects.findTasks()
-    .then(tasks => {
-      res.json(tasks);
-    })
-    .catch(err => {
-      res.status(500).json({ message: 'Failed to get tasks' });
-    });
-  });
 
 router.get('/:id', (req, res) => {
     const { id } = req.params;
@@ -72,9 +62,70 @@ router.get('/:id', (req, res) => {
     });
 });
   
-// router.get('/:id/resources', (req, res) => {
-//     const { id } = req.params;
+router.post('/', (req, res) => {
+  const postData = req.body;
 
-// });
+  Projects.add(postData)
+  .then(newProject => {
+    res.status(201).json(newProject);
+  })
+  .catch (err => {
+    res.status(500).json({ message: 'Failed to create new project' });
+  });
+});
+
+router.post('/:id/tasks', (req, res) => {
+  const taskData = req.body;
+  const { id } = req.params; 
+
+  Projects.findById(id)
+  .then(task => {
+    if (task) {
+      Projects.addTask(taskData, id)
+      .then(task => {
+        res.status(201).json(task);
+      })
+    } else {
+      res.status(404).json({ message: 'Could not find project with given id.' })
+    }
+  })
+  .catch (err => {
+    res.status(500).json({ message: 'Failed to create new resource' });
+  });
+});
+
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+
+  Projects.update(id, changes)
+
+  .then(project => {
+    if (project) {
+      res.json({ updated: project });
+    } else {
+      res.status(404).json({ message: 'Could not find project with given id' });
+    }
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'Failed to update project' });
+  });
+});
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+
+  Projects.remove(id)
+  .then(deleted => {
+    if (deleted) {
+      res.json({ removed: deleted });
+    } else {
+      res.status(404).json({ message: 'Could not find project with given id' });
+    }
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'Failed to delete scheme' });
+  });
+});
 
 module.exports = router;
